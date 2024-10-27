@@ -5,27 +5,74 @@ import { buttonKey } from "../../constants/buttonKey";
 const Home: React.FC = () => {
   const [calculatorInput, setCalculatorInput] = useState("0");
 
-  // const handleClearInput = () => {
-  //   setCalculatorInput("0");
-  // };
+  const handleCalculate = (value: string) => {
+    switch (value) {
+      case "0":
+      case "1":
+      case "2":
+      case "3":
+      case "4":
+      case "5":
+      case "6":
+      case "7":
+      case "8":
+      case "9":
+        setCalculatorInput((prev) => prev + value);
+        break;
+      case "AC":
+        setCalculatorInput("0");
+        break;
+      case "+/-":
+        setCalculatorInput((prev) => {
+          if (prev[0] === "-") {
+            return prev.slice(1);
+          }
+          if (prev === "") {
+            return prev;
+          } else {
+            return "-" + prev;
+          }
+        });
+        break;
 
-  // const handlePlusSeven = () => {
-  //   setCalculatorInput(calculatorInput + 7);
-  // };
+      case "%":
+      case "÷":
+      case "×":
+      case "-":
+      case "+":
+        setCalculatorInput((prev) => {
+          if (prev[prev.length - 1] === value) {
+            return prev;
+          } else if (prev === "") {
+            return prev;
+          } else {
+            return prev + value;
+          }
+        });
+        break;
+    }
+  };
+
   return (
     <body>
       <div className="calculator">
         <input
           onChange={(e) => setCalculatorInput(e.target.value)}
-          type="number"
+          type="text"
           value={calculatorInput}
           className="calculator-screen"
-          id="screen"
         />
 
         <div className="calculator-keys">
           {buttonKey.map((el) => {
-            return <button className={el.className}>{el.value}</button>;
+            return (
+              <button
+                onClick={() => handleCalculate(el.value)}
+                className={el.className}
+              >
+                {el.value}
+              </button>
+            );
           })}
         </div>
       </div>
