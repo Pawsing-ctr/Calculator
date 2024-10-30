@@ -19,7 +19,7 @@ export const buttonKey: IButton[] = [
   {
     id: 4,
     className: "key-pressure",
-    value: "÷",
+    value: "/",
   },
 
   {
@@ -43,7 +43,7 @@ export const buttonKey: IButton[] = [
   {
     id: 8,
     className: "key-operator",
-    value: "×",
+    value: "*",
   },
 
   {

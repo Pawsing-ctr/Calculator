@@ -34,6 +34,19 @@ body {
   text-align: right;
   color: #fff;
   background-color: #333333;
+  border: none;
+}
+
+.answer-calculator-screen{
+  padding: 10px 20px;
+  width: 100%;
+  max-width: 320px;
+  height: 60px;
+  font-weight: 400;
+  font-size: 34px;
+  text-align: right;
+  color: #b3b3b3;
+  background-color: #333333;
 }
 
 .calculator-keys {
