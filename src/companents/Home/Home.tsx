@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import "./Home.css";
 import { buttonKey } from "../../constants/buttonKey";
-
+const errorText = "Ошибка";
+const regularNumber = /[0-9]/;
+const masOperator = [".", "%", "/", "*", "-", "+"];
 const Home: React.FC = () => {
   const [calculatorInput, setCalculatorInput] = useState("0");
   // const answerNumber = eval(calculatorInput);
@@ -19,8 +21,10 @@ const Home: React.FC = () => {
       case "8":
       case "9":
         setCalculatorInput((prev) => {
-          if (prev[0] === "0" && prev[1] !== ".") {
+          if (prev[0] === "0" && !masOperator.some((el) => el === prev[1])) {
             return prev.slice(1) + value;
+          } else if (prev === errorText) {
+            return value;
           } else {
             return prev + value;
           }
@@ -36,6 +40,8 @@ const Home: React.FC = () => {
           }
           if (prev === "") {
             return prev;
+          } else if (prev === errorText) {
+            return "0";
           } else {
             return "-" + prev;
           }
@@ -52,8 +58,12 @@ const Home: React.FC = () => {
             return prev;
           } else if (prev === "") {
             return prev;
-          } else {
+          } else if (regularNumber.test(prev[prev.length - 1])) {
             return prev + value;
+          } else if (prev === errorText) {
+            return "0";
+          } else {
+            return prev;
           }
         });
         break;
@@ -61,6 +71,8 @@ const Home: React.FC = () => {
         setCalculatorInput((prev) => {
           if (prev.includes(".")) {
             return prev;
+          } else if (prev === errorText) {
+            return "0";
           } else {
             return prev + value;
           }
@@ -68,8 +80,10 @@ const Home: React.FC = () => {
         break;
       case "=":
         setCalculatorInput((prev) => {
-          if (prev === `${prev}/0`) {
-            return prev === "qwerwer";
+          if (prev === errorText) {
+            return "0";
+          } else if (eval(prev) === Infinity) {
+            return errorText;
           } else {
             return eval(prev);
           }
